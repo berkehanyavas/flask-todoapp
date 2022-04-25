@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Todo Uygulaması</title>
+</head>
+<body>
+    <div style = "margin: 50px;" class = "container">
+        <h3>Görev Listesi</h3>
+        <hr>
+
+        <form action="/ekle" method="post">
+            <div class="form-group">
+                <label for="formGroupExampleInput">Görev Başlık</label>
+                <input type="text" class="form-control" name = "title" id="formGroupExampleInput" placeholder="Görev Giriniz"><br>
+                <button type = "submit" class = "btn btn-secondary">Ekle</button>
+            </div>
+
+
+        </form>
+
+        {% if gorevler == [] %}
+        <div class="alert alert-warning" role="alert">
+            Burada hiç görev yok. (şimdilik...)
+        </div>
+        {% else %}
+
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Görev</th>
+                <th scope="col">Durum</th>
+                <th scope="col">Durum Güncelle</th>
+                <th scope="col">Görev Sil</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                {% for gorev in gorevler %}
+
+                <tr>
+                    <th scope="row">{{gorev.id}}</th>
+                    <td>{{gorev.title}}</td>
+                    {% if gorev.bitti == False %}
+                    <td>Tamamlanmadı</td>
+                    <td><a href = "/bitti/{{gorev.id}}" class = "btn btn-success">Tamamla</a></td>
+
+                    {% else %}
+                    <td>Tamamlandı</td>
+                    <td><a href = "/bitti/{{gorev.id}}" class = "btn btn-success">Başlat</a></td>
+
+                    {% endif %}
+
+                    <td><a href = "/sil/{{gorev.id}}" class = "btn btn-danger">Sil</td>
+                  </tr>
+                
+                {% endfor %}
+
+            </tbody>
+          </table>
+        
+          {% endif %}
+
+
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
